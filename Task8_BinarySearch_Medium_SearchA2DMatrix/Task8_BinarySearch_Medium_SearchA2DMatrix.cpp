@@ -4,12 +4,20 @@
 class Solution {
 public:
     static bool searchMatrix(std::vector<std::vector<int>>& matrix, int target) {
-        int left = 0, right = matrix.size() - 1, middle;
-
-        if (matrix[0][0] < target) {
-            return 0;
+        int m = matrix.size(), n = matrix[0].size();
+        int left = 0, right = m * n - 1, middle;
+        while (left <= right) {
+            middle = (left + right) / 2;
+            if (matrix[middle / n][middle % n] == target) {
+                return 1;
+            }
+            else if (matrix[middle / n][middle % n] > target) {
+                right = middle - 1;
+            }
+            else {
+                left = middle + 1;
+            }
         }
-
         return 0;
     }
 };
